@@ -122,16 +122,6 @@ def _verify_pqc_signature(
     except ImportError:
         pass
 
-    try:
-        from omnix_core.security.crypto_providers import get_active_provider
-        provider = get_active_provider()
-        sig = base64.b64decode(pqc_signature_b64)
-        pk  = base64.b64decode(public_key_b64)
-        result = provider.verify(sig, content_hash.encode("utf-8"), pk)
-        return bool(result), provider.algorithm_name()
-    except Exception:
-        pass
-
     return False, "UNAVAILABLE — install pqc library for signature verification"
 
 
